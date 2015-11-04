@@ -1,0 +1,32 @@
+/* CSS declarations go here */
+.container {
+	margin: auto;
+	text-align: center;
+}
+
+.delete {
+	float: right;
+	background: none;
+	font-weight: bold;
+}
+
+.face {
+	font-weight: bold;
+}
+
+.date {
+	margin-top: 20px;
+	font-size: 20px;
+}
+
+ul {
+	list-style: none;
+	width: 15%;
+	margin:auto;
+	text-align: center;
+}
+
+li{
+	margin: 5px;
+
+}
