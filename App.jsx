@@ -4,6 +4,7 @@ App = React.createClass({
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
+
    // Loads items from the Tasks collection and puts them on this.data.tasks
   getMeteorData() {
     return {
@@ -14,12 +15,28 @@ App = React.createClass({
   },
   
   getInitialState: function() {
-    today = new Date();
-    return {};
+    
+    return {the_date: new Date(), showPast: false};
+  },
+
+  onPastClick: function() {
+    if(this.state.showPast == false){
+      this.setState({ showPast: true});  
+    }
+    else{
+      this.setState({ showPast: false});
+    }
+    
   },
 
   renderAllMoods() {
-
+    return this.data.moods.map((mood) => {
+      return (
+        <div>
+          <Mood key={mood._id} mood={mood} />
+        </div>
+        );
+    });
   },
 
   renderMoods() {
@@ -68,25 +85,30 @@ App = React.createClass({
         
         { this.data.currentUser ?
         <div>
-        <form className="your_mood" onSubmit={this.handleSubmit} >
-          <select ref="mood">
-            <option value="0" disabled selected>Select your Mood</option>
-            <option value=":)">:)</option>
-            <option value=":|">:|</option> 
-            <option value=":(">:(</option>
-          </select>
-          <button type="submit">submit</button>
-          
-        </form> 
+          <form className="your_mood" onSubmit={this.handleSubmit} >
+            <select ref="mood">
+              <option value="0" disabled selected>Select your Mood</option>
+              <option value=":)">:)</option>
+              <option value=":|">:|</option> 
+              <option value=":(">:(</option>
+            </select>
+            <button type="submit">submit</button>
+            
+          </form> 
         
-        <div className="date">
-          <button> [-- </button>
-          {this.renderToday()}
-          <button> --] </button>
-        </div>
-        <ul>
-          {this.renderMoods()}
-        </ul> 
+          <div>
+            <ul>
+              {this.renderMoods()}
+            </ul>
+          </div>  
+          <div>
+            <h1>All Moods</h1>
+            <button onClick={this.onPastClick}>\/</button>
+            {this.state.showPast ? <ul>
+              {this.renderAllMoods()}
+            </ul> : null }
+
+          </div>  
         </div>
         : '' 
       }

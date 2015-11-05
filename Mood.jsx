@@ -10,6 +10,13 @@ Mood = React.createClass({
 		Moods.remove(this.props.mood._id);
 	},
 
+	renderDate(){
+		day = this.props.mood.createdAt.getDay();
+		month = this.props.mood.createdAt.getMonth();
+		year = this.props.mood.createdAt.getFullYear();
+		return (month + '/' + day + '/' + year);
+	},
+
 	renderTime(){
 		ampm= 'am';
 		h =this.props.mood.createdAt.getHours();
@@ -29,6 +36,7 @@ Mood = React.createClass({
           &times;</button>
 				<li className="face">{this.props.mood.text}</li>
 				<li>{this.renderTime()}</li>
+				<li>{this.renderDate()}</li>
 				
 			</div>
 		);
