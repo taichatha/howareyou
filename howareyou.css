@@ -2,16 +2,30 @@
 .container {
 	margin: auto;
 	text-align: center;
+	background-color: linear-gradient(#66FF66, #E5FFE5);
+	
 }
 
+.header {
+	background-color: #99FF99;
+
+}
+
+.moody {
+	background-color: #BBFFBB;
+	width: 80%;
+	margin:auto;
+}
 .delete {
 	float: right;
 	background: none;
 	font-weight: bold;
+	margin: auto;
 }
 
 .face {
 	font-weight: bold;
+	color: yellow;
 }
 
 .date {
@@ -30,3 +44,5 @@ li{
 	margin: 5px;
 
 }
+
+

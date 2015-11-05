@@ -11,7 +11,7 @@ Mood = React.createClass({
 	},
 
 	renderDate(){
-		day = this.props.mood.createdAt.getDay();
+		day = this.props.mood.createdAt.getDay() + 1;
 		month = this.props.mood.createdAt.getMonth();
 		year = this.props.mood.createdAt.getFullYear();
 		return (month + '/' + day + '/' + year);

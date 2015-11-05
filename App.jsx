@@ -29,19 +29,37 @@ App = React.createClass({
     
   },
 
+  dayBefore: function() {
+    this.state.the_date.setDate(this.state.the_date.getDate() - 1 );
+    
+    this.setState({the_date: this.state.the_date});
+  },
+
+  dayAfter: function() {
+    this.state.the_date.setDate(this.state.the_date.getDate() + 1 );
+    
+    this.setState({the_date: this.state.the_date});
+  },
   renderAllMoods() {
-    return this.data.moods.map((mood) => {
-      return (
-        <div>
-          <Mood key={mood._id} mood={mood} />
-        </div>
-        );
-    });
+    var moodies = this.data.moods;
+    var show = [];
+    for(var i = 0; i<moodies.length; i++){
+        if(moodies[i].owner === Meteor.userId()){
+            show.push(<Mood key={moodies[i]._id} mood={moodies[i]} />);
+   
+      };
+    };
+
+    return (<div>{show}</div>);
+  },
+
+  renderDate() {
+    return this.state.the_date.toDateString();
   },
 
   renderMoods() {
     // Get tasks from this.data.moods
-    var d = new Date();
+    var d = this.state.the_date;
     var moodies = this.data.moods;
     var show = [];
     for(var i = 0; i<moodies.length; i++){
@@ -80,11 +98,13 @@ App = React.createClass({
   render: function() {
     return (
       <div className="container">
-        <h1>How are You?</h1>
-        <AccountsUIWrapper />
+        <div className="header">
+          <h1>How are You?</h1>
+          <AccountsUIWrapper />
+        </div>
         
         { this.data.currentUser ?
-        <div>
+        <div className="moody">
           <form className="your_mood" onSubmit={this.handleSubmit} >
             <select ref="mood">
               <option value="0" disabled selected>Select your Mood</option>
@@ -97,6 +117,11 @@ App = React.createClass({
           </form> 
         
           <div>
+            <div>
+              <button onClick={this.dayBefore}>[==</button>
+              {this.renderDate()}
+              <button onClick={this.dayAfter}>==]</button>
+            </div>
             <ul>
               {this.renderMoods()}
             </ul>
